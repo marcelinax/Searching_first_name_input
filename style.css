@@ -13,6 +13,10 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -54,6 +58,9 @@
   width: 60%;
   max-height: 200px;
   overflow-y: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -89,5 +96,44 @@
 
 .container .box .hintsBox::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.container .namesBox {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-height: 200px;
+  margin: 2rem;
+}
+
+.container .namesBox p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  margin-right: 2rem;
+  font-size: 16px;
+  padding: 5px;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.container .namesBox p .closeBtn {
+  width: 3px;
+  height: 3px;
+  background-image: url("close.svg");
+  background-position: center;
+  margin-left: 1rem;
+  margin-right: 0.2rem;
+  margin-top: 0.3rem;
+  padding: 3px;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

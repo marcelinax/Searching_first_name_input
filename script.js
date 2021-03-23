@@ -1206,10 +1206,30 @@ const dictionary = [
   "Żytomir",
 ];
 
+let names = [];
+
 const inputEl = document.querySelector("input");
 const box = document.querySelector(".box");
+const container = document.querySelector(".container");
+const namesBox = document.querySelector(".namesBox");
 const hintsBox = document.createElement("div");
 hintsBox.classList.add("hintsBox");
+
+const saveInLocalStorage = () => {
+  localStorage.setItem("names", JSON.stringify(names));
+};
+const readFromLocalStorage = () => {
+  names = [];
+  const localNames = localStorage.getItem("names");
+  if (localNames) {
+    const namesShapes = JSON.parse(localStorage.getItem("names"));
+    namesShapes.forEach((name) => {
+      names.push(name);
+    });
+  }
+
+  return names;
+};
 
 const getInputValue = () => {
   const input = document.querySelector("input").value;
@@ -1237,7 +1257,54 @@ const renderParagraph = (word) => {
   paragraph.innerHTML = word;
   paragraph.addEventListener("click", () => {
     document.querySelector("input").value = word;
-    hintsBox.innerHTML = "";
+    if (!names.includes(word)) {
+      names = [...names, word];
+      saveInLocalStorage();
+      renderChosenName(word);
+
+      hintsBox.innerHTML = "";
+    }
+    return;
   });
   hintsBox.appendChild(paragraph);
 };
+
+const renderChosenName = (name) => {
+  const closeSvg = document.createElement("div");
+  closeSvg.classList.add("closeBtn");
+  const paragraph = document.createElement("p");
+  paragraph.innerHTML = name;
+  paragraph.appendChild(closeSvg);
+
+  namesBox.appendChild(paragraph);
+  container.appendChild(namesBox);
+  saveInLocalStorage();
+  initDeleteName();
+};
+
+const deleteName = (name) => {
+  const index = names.indexOf(name);
+
+  if (names.includes(name)) {
+    names = [...names.filter((n) => n != name)];
+    saveInLocalStorage();
+
+    console.log(names);
+    location.reload();
+  }
+  return;
+};
+
+const initDeleteName = () => {
+  const deleteBtn = document.querySelectorAll(".closeBtn");
+  deleteBtn.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const name = event.target.previousSibling.data;
+      deleteName(name);
+    });
+  });
+};
+readFromLocalStorage();
+
+names.forEach((name) => renderChosenName(name));
+initDeleteName();
